@@ -1,0 +1,8 @@
+<header>
+  <h1>Posts</h1>
+    <li><%= link_to "New Post", new_post_path %></li>
+</header>
+
+<% @posts.each do |post| %>
+  <h2><%= link_to post.title, post %></h2>
+<% end %>

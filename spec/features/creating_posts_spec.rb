@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-feature 'Creating Posts' do
-  scenario "can create a post" do
+RSpec.feature 'Users can create new posts' do
+  scenario "with valid attributes" do
     visit '/'
 
     click_link 'New Post'
