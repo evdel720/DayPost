@@ -4,5 +4,5 @@
 </header>
 
 <% @posts.each do |post| %>
-  <h2><%= link_to post.title, post %></h2>
+  <h2><%= link_to post.title, post_path(post) %></h2>
 <% end %>

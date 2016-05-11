@@ -1,0 +1,12 @@
+<header>
+  <h1><%= @post.title %></h1>
+  <ul>
+    <li><%= link_to "Edit Post", edit_post_path(@post), class: "edit" %></li>
+    <li><%= link_to "Delete Post", post_path(@post),
+        method: :delete,
+        data: { confirm: "Are you sure you want to delete this post?" },
+        class: "delete" %></li>
+  </ul>
+</header>
+<%= button_to "Like it #{ @post.count }" %>
+<p><%= @post.content %></p>
