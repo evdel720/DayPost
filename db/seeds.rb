@@ -5,3 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+["Sublime Text 3", "Internet Explorer"].each do |title|
+  unless Post.exists?(title: title)
+    Post.create!(title: title, content: "A sample project about #{title}")
+  end
+end

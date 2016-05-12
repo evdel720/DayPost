@@ -1,7 +1,14 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :like]
   def index
     @posts = Post.all
+  end
+
+  def like
+    @post.count += 1
+    @post.save
+    flash[:notice] = "You liked this post."
+    redirect_to post_path(@post)
   end
 
   def new
@@ -13,7 +20,7 @@ class PostsController < ApplicationController
 
     if @post.save
       flash[:notice] = "Post has been created."
-      redirect_to posts_path(@post)
+      redirect_to post_path(@post)
     else
       flash.now[:alert] = "Post has not been created."
       render "new"
@@ -29,7 +36,7 @@ class PostsController < ApplicationController
   def update
     if @post.update(post_params)
       flash[:notice] = "Post has been updated."
-      redirect_to @post
+      redirect_to post_path(@post)
     else
       flash.now[:alert] = "Post has not been updated."
       render "edit"

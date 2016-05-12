@@ -53,4 +53,5 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'factory_girl_rails', '~> 4.5'
 end

@@ -8,5 +8,8 @@
         class: "delete" %></li>
   </ul>
 </header>
-<%= button_to "Like it #{ @post.count }" %>
+<div class="like">
+  <%= button_to "Like it #{ @post.count }", action: "like" %>
+</div>
+
 <p><%= @post.content %></p>
