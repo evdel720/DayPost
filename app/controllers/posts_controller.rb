@@ -6,7 +6,7 @@ class PostsController < ApplicationController
 
   def like
     @post.count += 1
-    @post.save
+    @post.save!
     flash[:notice] = "You liked this post."
     redirect_to post_path(@post)
   end
@@ -17,7 +17,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-
+    @post.author_id = current_user
     if @post.save
       flash[:notice] = "Post has been created."
       redirect_to post_path(@post)
@@ -28,6 +28,7 @@ class PostsController < ApplicationController
   end
 
   def show
+    @comment = Comment.new
   end
 
   def edit

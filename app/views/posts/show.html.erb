@@ -8,8 +8,15 @@
         class: "delete" %></li>
   </ul>
 </header>
+
 <div class="like">
-  <%= button_to "Like it #{ @post.count }", action: "like" %>
+  <%= button_to "Like it #{ @post.count }", action: "like", controller: "posts" %>
 </div>
 
 <p><%= @post.content %></p>
+
+<h2>Comments</h2>
+<%= render partial: "comments/form" %>
+<div>
+  <%= render partial: 'posts/comment', collection: @post.comments %>
+</div>

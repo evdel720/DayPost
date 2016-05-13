@@ -1,14 +1,16 @@
 require 'spec_helper'
 
-RSpec.feature 'Users can view posts' do
+RSpec.feature 'Users can delete comments' do
   let!(:post) { FactoryGirl.create(:post, title: "Luxury Title", content: "New content with long content") }
   let!(:comment) { FactoryGirl.create(:comment, post_id: post.id, content: "First comment") }
 
-  scenario "with the post details" do
-    visit "/"
+  before do
+    visit post_path(post)
+  end
 
-    click_link "Luxury Title"
-    expect(page).to have_content(comment.content)
-    expect(page.current_url).to eq post_url(post)
+  scenario "successfully" do
+    click_link 'Delete Comment'
+
+    expect(page).to have_content('Comment has been deleted.')
   end
 end

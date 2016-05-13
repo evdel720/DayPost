@@ -11,18 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160511232934) do
+ActiveRecord::Schema.define(version: 20160512164807) do
 
-  create_table "posts", force: :cascade do |t|
-    t.string   "title"
+  create_table "comments", force: :cascade do |t|
     t.string   "content"
     t.integer  "count",      default: 0
     t.integer  "author_id"
+    t.integer  "post_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
+  add_index "comments", ["author_id"], name: "index_comments_on_author_id"
+  add_index "comments", ["post_id"], name: "index_comments_on_post_id"
+
+  create_table "posts", force: :cascade do |t|
+    t.string   "title"
+    t.string   "content"
+    t.integer  "count",       default: 0
+    t.integer  "author_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "comments_id"
+  end
+
   add_index "posts", ["author_id"], name: "index_posts_on_author_id"
+  add_index "posts", ["comments_id"], name: "index_posts_on_comments_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

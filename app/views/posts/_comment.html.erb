@@ -1,0 +1,5 @@
+<div>
+  <p>Commented by <i><%= User.find(comment.author_id).email %></i> : <%= comment.content %></p>
+  <%= link_to "Edit Comment", [:edit, @post, comment], class: "edit" %>
+  <%= link_to "Delete Comment", [@post, comment], method: :delete, data: {confirm: "Are you sure you want to delete this?"}, class: "delete" %>
+<div>
