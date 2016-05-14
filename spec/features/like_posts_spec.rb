@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 RSpec.feature 'Users can like posts' do
+  let!(:user) { FactoryGirl.create(:user, :admin) }
   let!(:post) { FactoryGirl.create(:post, title: "Luxury Title", content: "New content with long content") }
-
   before do
-    visit "/"
-    click_link "Luxury Title"
+    login_as(user)
+    visit post_path(post)
   end
 
   scenario "successfully" do

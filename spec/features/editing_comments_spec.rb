@@ -1,10 +1,12 @@
 require 'spec_helper'
 
 RSpec.feature 'Users can edit posts' do
-  let!(:post) { FactoryGirl.create(:post, title: "Luxury Title", content: "New content with long content") }
-  let!(:comment) { FactoryGirl.create(:comment, post_id: post.id, content: "First comment") }
+  let!(:user) { FactoryGirl.create(:user, :admin) }
 
   before do
+    login_as(user)
+    post = FactoryGirl.create(:post, title: "Luxury Title", content: "New content with long content")
+    comment = FactoryGirl.create(:comment, post_id: post.id, author_id: user.id, content: "First comment")
     visit post_path(post)
     click_link "Edit Comment"
   end

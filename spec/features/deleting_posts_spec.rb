@@ -1,11 +1,13 @@
 require 'spec_helper'
 
 RSpec.feature 'Users can delete posts' do
-  let!(:post) { FactoryGirl.create(:post, title: "Luxury Title", content: "New content with long content") }
+  let!(:user) { FactoryGirl.create(:user, :admin) }
+  let(:post) { FactoryGirl.create(:post, title: "Luxury Title", content: "New content with long content") }
 
   scenario "successfully" do
     visit '/'
-    click_link "Luxury Title"
+    login_as(user)
+    visit post_path(post)
     click_link 'Delete Post'
 
     expect(page).to have_content('Post has been deleted.')

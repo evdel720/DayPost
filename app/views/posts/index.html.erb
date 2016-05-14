@@ -4,5 +4,5 @@
 </header>
 
 <% @posts.each do |post| %>
-  <h2><%= link_to post.title, post_path(post) %> <i>Written by <%= User.find(post.author_id).email %></i></h2>
+  <h2><%= link_to post.title, post_path(post) %> <i>Written by <%= User.find(post.author.id).email %></i></h2>
 <% end %>
