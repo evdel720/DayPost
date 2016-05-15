@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    root 'application#index'
+    resources :users
+  end
+
   root "posts#index"
 
   resources :posts do
@@ -7,7 +12,6 @@ Rails.application.routes.draw do
       post "like"
     end
   end
-
 
   devise_for :users
 end

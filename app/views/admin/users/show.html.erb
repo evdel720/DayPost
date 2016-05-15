@@ -1,0 +1,7 @@
+<header>
+  <h2><%= @user %></h2>
+</header>
+<ul>
+  <li><%= link_to "Change Authority", [:admin, @user], method: :patch, data: { confirm: "Are you sure you want to change this user's authority?" } %></li>
+  <li><%= link_to "Archive User", [:admin, @user], method: :delete, data: {confirm: "Are you sure you want to archive this user?"} %></li>
+</ul>
