@@ -3,10 +3,12 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
   def new
     @comment = Comment.new
+    authorize @comment, :create?
   end
 
   def create
     @comment = Comment.new(comment_params)
+    authorize @comment, :create?
     @comment.post = @post
     @comment.author = current_user
     if @comment.save
@@ -19,9 +21,11 @@ class CommentsController < ApplicationController
   end
 
   def edit
+    authorize @comment, :update?
   end
 
   def update
+    authorize @comment, :update?
     if @comment.update(comment_params)
       flash[:notice] = "Comment has been updated."
       redirect_to post_path(@post)
@@ -32,6 +36,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    authorize @comment, :update?
     @comment.destroy
 
     flash[:notice] = "Comment has been deleted."

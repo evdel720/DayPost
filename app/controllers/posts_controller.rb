@@ -5,6 +5,7 @@ class PostsController < ApplicationController
   end
 
   def like
+    authorize @post, :create?
     @post.count += 1
     @post.save!
     flash[:notice] = "You liked this post."
@@ -13,10 +14,12 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    authorize @post, :create?
   end
 
   def create
     @post = Post.new(post_params)
+    authorize @post, :create?
     @post.author = current_user
     if @post.save
       flash[:notice] = "Post has been created."
@@ -32,9 +35,11 @@ class PostsController < ApplicationController
   end
 
   def edit
+    authorize @post, :update?
   end
 
   def update
+    authorize @post, :update?
     if @post.update(post_params)
       flash[:notice] = "Post has been updated."
       redirect_to post_path(@post)
@@ -45,6 +50,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    authorize @post, :update?
     @post.destroy
 
     flash[:notice] = "Post has been deleted."
