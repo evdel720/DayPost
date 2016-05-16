@@ -6,10 +6,14 @@ class PostsController < ApplicationController
 
   def like
     authorize @post, :create?
-    @post.count += 1
-    @post.save!
-    flash[:notice] = "You liked this post."
-    redirect_to post_path(@post)
+    if @post.liked.include?(current_user)
+      flash[:notice] = "You already liked this post."
+      redirect_to post_path(@post)
+    else
+      @post.liked << current_user
+      flash[:notice] = "You liked this post."
+      redirect_to post_path(@post)
+    end
   end
 
   def new

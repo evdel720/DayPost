@@ -10,7 +10,10 @@
 </header>
 
 <div class="like">
-  <%= button_to "Like it #{ @post.count }", action: "like", controller: "posts" %>
+  <%= button_to "Like it #{@post.liked.count }", action: "like", controller: "posts" %>
+  <% if current_user.admin? %>
+    <h3>Liked users : <%= @post.liked.map(&:email).to_sentence %> </h3>
+  <% end %>
 </div>
 
 <p><%= @post.content %></p>
