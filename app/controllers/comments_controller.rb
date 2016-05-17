@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_post
-  before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  before_action :set_comment, only: [:show, :edit, :update, :destroy, :like]
   def new
     @comment = Comment.new
     authorize @comment, :create?
@@ -16,6 +16,18 @@ class CommentsController < ApplicationController
       redirect_to post_path(@post)
     else
       flash[:alert] = "Comment has not been created."
+      redirect_to post_path(@post)
+    end
+  end
+
+  def like
+    authorize @comment, :create?
+    if @comment.liked.include?(current_user)
+      flash[:notice] = "You already liked this post."
+      redirect_to post_path(@post)
+    else
+      @comment.liked << current_user
+      flash[:notice] = "You liked this post."
       redirect_to post_path(@post)
     end
   end
@@ -36,7 +48,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    authorize @comment, :update?
+    authorize @comment, :destroy?
     @comment.destroy
 
     flash[:notice] = "Comment has been deleted."

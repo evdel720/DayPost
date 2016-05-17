@@ -8,7 +8,11 @@ class Admin::UsersController < Admin::ApplicationController
   end
 
   def update
-    @user.update(admin: !@user.admin)
+    if @user == current_user
+      flash[:alert] = "You cannot make yourself as non-admin user."
+    else
+      @user.update(admin: !@user.admin)
+    end
     redirect_to admin_user_path(@user)
   end
 
@@ -19,7 +23,7 @@ class Admin::UsersController < Admin::ApplicationController
       @user.update(archived_at: Time.now)
       flash[:notice] = "User has been archived."
     end
-    
+
     redirect_to admin_users_path
   end
 

@@ -10,6 +10,10 @@ class CommentPolicy < ApplicationPolicy
   end
 
   def update?
+    user == record.author
+  end
+
+  def destroy?
     user == record.author || (!user.nil? && user.admin?)
   end
 end

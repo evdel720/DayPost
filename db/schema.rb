@@ -11,15 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160516162705) do
+ActiveRecord::Schema.define(version: 20160517211548) do
+
+  create_table "comment_liked", id: false, force: :cascade do |t|
+    t.integer "comment_id", null: false
+    t.integer "user_id",    null: false
+  end
+
+  add_index "comment_liked", ["comment_id", "user_id"], name: "index_comment_liked_on_comment_id_and_user_id"
+  add_index "comment_liked", ["user_id", "comment_id"], name: "index_comment_liked_on_user_id_and_comment_id"
 
   create_table "comments", force: :cascade do |t|
     t.string   "content"
-    t.integer  "count",      default: 0
     t.integer  "author_id"
     t.integer  "post_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "comments", ["author_id"], name: "index_comments_on_author_id"

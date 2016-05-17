@@ -54,7 +54,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    authorize @post, :update?
+    authorize @post, :destroy?
     @post.destroy
 
     flash[:notice] = "Post has been deleted."

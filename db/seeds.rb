@@ -9,12 +9,22 @@ unless User.exists?(email: "admin@daypost.com")
   User.create!(email: "admin@daypost.com", password: "password", admin: true)
 end
 
-unless User.exists?(email: "user@daypost.com")
-  User.create!(email: "user@daypost.com", password: "password")
+["user1@daypost.com", "user2@daypost.com"].each do |email|
+  User.create!(email: email, password: "password")
 end
 
-["The first post", "The second post"].each do |title|
-  unless Post.exists?(title: title)
-    Post.create!(title: title, content: "A sample project about #{title}", author_id: User.first.id )
-  end
+unless Post.exists?(title: "The first post")
+  Post.create!(title: "The first post", content: "A sample project about The first post", author_id: User.where(admin: true).first.id )
+end
+
+unless Post.exists?(title: "The second post")
+  Post.create!(title: "The second post", content: "A sample project about The second post", author_id: User.where(admin: false).first.id )
+end
+
+unless Comment.exists?(content: "The first comment")
+  Comment.create!(content: "The first comment", author_id: User.where(admin: true).first.id, post_id: Post.first.id )
+end
+
+unless Comment.exists?(content: "The second comment")
+  Comment.create!(content: "The second comment", author_id: User.where(admin: false).first.id, post_id: Post.first.id )
 end
