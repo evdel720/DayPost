@@ -12,10 +12,10 @@ class CommentsController < ApplicationController
     @comment.post = @post
     @comment.author = current_user
     if @comment.save
-      flash[:notice] = "Comment has been created."
+      flash[:notice] = I18n.t('.comment_created')
       redirect_to post_path(@post)
     else
-      flash[:alert] = "Comment has not been created."
+      flash[:alert] = I18n.t('.comment_not_created')
       redirect_to post_path(@post)
     end
   end
@@ -23,11 +23,11 @@ class CommentsController < ApplicationController
   def like
     authorize @comment, :create?
     if @comment.liked.include?(current_user)
-      flash[:notice] = "You already liked this post."
+      flash[:notice] = I18n.t('.already_liked_comment')
       redirect_to post_path(@post)
     else
       @comment.liked << current_user
-      flash[:notice] = "You liked this post."
+      flash[:notice] = I18n.t('.liked_comment')
       redirect_to post_path(@post)
     end
   end
@@ -39,10 +39,10 @@ class CommentsController < ApplicationController
   def update
     authorize @comment, :update?
     if @comment.update(comment_params)
-      flash[:notice] = "Comment has been updated."
+      flash[:notice] = I18n.t('.comment_updated')
       redirect_to post_path(@post)
     else
-      flash.now[:alert] = "Comment has not been updated."
+      flash.now[:alert] = I18n.t('.comment_not_updated')
       render "edit"
     end
   end
@@ -51,7 +51,7 @@ class CommentsController < ApplicationController
     authorize @comment, :destroy?
     @comment.destroy
 
-    flash[:notice] = "Comment has been deleted."
+    flash[:notice] = I18n.t('.comment_deleted')
     redirect_to post_path(@post)
   end
 

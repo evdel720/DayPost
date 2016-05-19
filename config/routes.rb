@@ -4,18 +4,19 @@ Rails.application.routes.draw do
     resources :users
   end
 
-  root "posts#index"
+  scope '(:locale)' do
+    root "posts#index"
 
-  resources :posts do
-    resources :comments do
+    resources :posts do
+      resources :comments do
+        member do
+          post "like"
+        end
+      end
       member do
         post "like"
       end
     end
-    member do
-      post "like"
-    end
+    devise_for :users
   end
-
-  devise_for :users
 end

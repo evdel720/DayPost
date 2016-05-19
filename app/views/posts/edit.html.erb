@@ -1,4 +1,10 @@
 <header>
-  <h1>Edit post</h1>
+  <h1><%= t('.edit_post') %></h1>
 </header>
-<%= render "form", post: @post %>
+<%= simple_form_for(@post) do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :title, label: t('.title') %>
+  <%= f.input :content, label: t('.content') %>
+
+  <%= f.button :submit, t('.update')%>
+<% end %>

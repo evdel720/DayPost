@@ -2,19 +2,19 @@
   <h1><%= @post.title %></h1>
   <ul>
     <% if policy(@post).update? %>
-      <li><%= link_to "Edit Post", edit_post_path(@post), class: "edit" %></li>
+      <li><%= link_to t('.edit_link'), edit_post_path(@post), class: "edit" %></li>
     <% end %>
     <% if policy(@post).destroy? %>
-      <li><%= link_to "Delete Post", post_path(@post),
+      <li><%= link_to t('.del_link'), post_path(@post),
           method: :delete,
-          data: { confirm: "Are you sure you want to delete this post?" },
+          data: { confirm: t('.confirm') },
           class: "delete" %></li>
     <% end %>
   </ul>
 </header>
 
 <div class="like">
-  <%= button_to "Like it #{@post.liked.count }", [:like, @post], method: :post %>
+  <%= button_to t('.likeit') + " #{@post.liked.count }", [:like, @post], method: :post %>
   <% if current_user && current_user.admin? %>
     <h3>Liked users : <%= @post.liked.map(&:email).to_sentence %> </h3>
   <% end %>
@@ -22,7 +22,7 @@
 
 <p><%= @post.content %></p>
 
-<h2>Comments</h2>
+<h2><%= t('.comments') %></h2>
 <% if policy(Comment.new).create? %>
   <%= render partial: "comments/form" %>
 <% end %>

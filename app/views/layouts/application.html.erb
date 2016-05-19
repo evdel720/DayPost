@@ -11,16 +11,16 @@
 <% flash.each do |key, message| %>
   <div class="alert-<%= key %>"><%= message %></div>
 <% end %>
-<%= link_to "Home", posts_path %>
+<%= link_to t('.home'), posts_path %>
 <% if user_signed_in? %>
-  <p>Signed in as <%= current_user.email %></p>
-  <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-  <%= link_to "Manage Info", edit_user_registration_path %>
+  <p><%= t('.username') %><%= current_user.email %></p>
+  <%= link_to t('.logout'), destroy_user_session_path, method: :delete %>
+  <%= link_to t('.manage_info'), edit_user_registration_path %>
   <% if current_user.admin? %>
-    <%= link_to "Admin", admin_root_path %>
+    <%= link_to t('.admin'), admin_root_path %>
   <% end %>
 <% else %>
-  <%= link_to "Login", user_session_path %>
+  <%= link_to t('.login'), user_session_path %>
 <% end %>
 <%= yield %>
 

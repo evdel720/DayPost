@@ -1,6 +1,6 @@
 <%= simple_form_for [@post, @comment] do |f| %>
   <%= f.error_notification %>
-  <%= f.input :content %>
+  <%= f.input :content, label: t('.content') %>
 
-  <%= f.submit 'Leave this comment' %>
+  <%= f.button :submit, t('.leave') %>
 <% end %>

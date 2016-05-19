@@ -7,11 +7,11 @@ class PostsController < ApplicationController
   def like
     authorize @post, :create?
     if @post.liked.include?(current_user)
-      flash[:notice] = "You already liked this post."
+      flash[:notice] = I18n.t('.already_liked_post')
       redirect_to post_path(@post)
     else
       @post.liked << current_user
-      flash[:notice] = "You liked this post."
+      flash[:notice] = I18n.t('.liked_post')
       redirect_to post_path(@post)
     end
   end
@@ -26,10 +26,10 @@ class PostsController < ApplicationController
     authorize @post, :create?
     @post.author = current_user
     if @post.save
-      flash[:notice] = "Post has been created."
+      flash[:notice] = I18n.t('.post_created')
       redirect_to post_path(@post)
     else
-      flash.now[:alert] = "Post has not been created."
+      flash.now[:alert] = I18n.t('.post_not_created')
       render "new"
     end
   end
@@ -45,10 +45,10 @@ class PostsController < ApplicationController
   def update
     authorize @post, :update?
     if @post.update(post_params)
-      flash[:notice] = "Post has been updated."
+      flash[:notice] = I18n.t('.post_updated')
       redirect_to post_path(@post)
     else
-      flash.now[:alert] = "Post has not been updated."
+      flash.now[:alert] = I18n.t('.post_not_updated')
       render "edit"
     end
   end
@@ -57,7 +57,7 @@ class PostsController < ApplicationController
     authorize @post, :destroy?
     @post.destroy
 
-    flash[:notice] = "Post has been deleted."
+    flash[:notice] = I18n.t('.post_deleted')
     redirect_to posts_path
   end
 
