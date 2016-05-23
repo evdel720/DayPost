@@ -116,10 +116,14 @@ en:
       admin: "Admin"
       login: "Login"
   posts:
+    history:
+      history: "Select Date"
     index:
-      daypost: "Today's Posts"
+      daypost: "'s Posts"
+      today: "Today's Posts"
       new_post: "New Post"
       writer: "Written by "
+      history: "History"
     new:
       new_post: "New Post"
     form:

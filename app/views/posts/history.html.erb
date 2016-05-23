@@ -1,0 +1,6 @@
+<header>
+  <h1><%= t('.history') %></h1>
+</header>
+<% @groups.each do |group| %>
+  <p><%= link_to group[0], posts_path(:date => group[1].first.created_at) %></p>
+<% end %>

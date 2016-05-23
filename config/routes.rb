@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   scope '(:locale)' do
     root "posts#index"
-
+    get 'history', to: 'posts#history'
     resources :posts do
       resources :comments do
         member do

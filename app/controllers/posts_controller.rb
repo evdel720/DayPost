@@ -1,7 +1,23 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy, :like]
   def index
-    @posts = Post.all
+    if params[:set_locale]
+      redirect_to posts_url(locale: params[:set_locale])
+    else
+      if params[:date]
+        temp = params[:date].scan(/[0-9]+/)
+        @today = Time.new(temp[0], temp[1], temp[2])
+        @posts = Post.where(created_at: @today.midnight..@today.midnight + 1.day)
+        @posts = @posts.sort_by{|post| post.liked.count }.reverse
+      else
+        @posts = Post.where(created_at: Time.now.midnight..Time.now.midnight + 1.day)
+        @posts = @posts.sort_by{|post| post.liked.count }.reverse
+      end
+    end
+  end
+
+  def history
+    @groups = Post.all.group_by{|c| c.created_at.to_date }
   end
 
   def like

@@ -1,11 +1,11 @@
-<p>select date form goes here</p>
 <header>
-  <h1><%= t('.daypost') %></h1>
+  <h1><%= params[:date] ? @today.strftime("%m %d %Y") + t('.daypost') : t('.today') %></h1>
+    <li><%= link_to t('.history'), history_path %></li>
     <% if policy(Post.new).create? %>
       <li><%= link_to t('.new_post'), new_post_path %></li>
     <% end %>
 </header>
 
 <% @posts.each do |post| %>
-  <h2><%= link_to post.title, post_path(post) %> <i><%= t('.writer') %><%= User.find(post.author.id).email %></i></h2>
+  <h2><%= post.liked.count %>  <%= link_to post.title, post_path(post) %> <i><%= t('.writer') %><%= User.find(post.author.id).email %></i></h2>
 <% end %>
