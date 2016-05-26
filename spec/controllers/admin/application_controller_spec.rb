@@ -12,7 +12,7 @@ RSpec.describe Admin::ApplicationController, type: :controller do
     it "are not able to access the index action" do
       get :index
 
-      expect(response).to redirect_to "/"
+      expect(response).to redirect_to "/en"
       expect(flash[:alert]).to eq "You must be an admin to do that."
     end
   end

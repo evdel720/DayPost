@@ -1,11 +1,12 @@
 require 'spec_helper'
 
 RSpec.feature 'Users can create new comments' do
-  let(:post) { FactoryGirl.create(:post, title: "Luxury Title", content: "New content with long content") }
-  let!(:user) { FactoryGirl.create(:user, :admin) }
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:post) { FactoryGirl.create(:post, title: "Luxury Title", author_id: user.id, content: "New content with long content") }
+
   before do
     login_as(user)
-    visit post_path(post)
+    visit post_path(:en, post)
   end
 
   scenario "with valid attributes" do

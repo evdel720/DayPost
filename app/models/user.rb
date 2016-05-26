@@ -8,6 +8,10 @@ class User < ActiveRecord::Base
     "#{email} (#{admin? ? "Admin" : "User"})"
   end
 
+  def archive
+    self.update(archived_at: Time.now)
+  end
+
   def active_for_authentication?
     super && archived_at.nil?
   end

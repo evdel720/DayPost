@@ -1,14 +1,14 @@
 require 'spec_helper'
 
-RSpec.feature 'Users can edit posts' do
-  let!(:user) { FactoryGirl.create(:user, :admin) }
+RSpec.feature 'Users can edit comments' do
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:post) { FactoryGirl.create(:post, title: "Luxury Title", author_id: user.id, content: "New content with long content") }
+  let!(:comment) { FactoryGirl.create(:comment, post_id: post.id, author_id: user.id, content: "First comment") }
 
   before do
     login_as(user)
-    post = FactoryGirl.create(:post, title: "Luxury Title", content: "New content with long content")
-    comment = FactoryGirl.create(:comment, post_id: post.id, author_id: user.id, content: "First comment")
-    visit post_path(post)
-    click_link "Edit Comment"
+    visit post_path(:en, post)
+    click_link "comment_edit"
   end
 
   scenario "with valid attributes" do

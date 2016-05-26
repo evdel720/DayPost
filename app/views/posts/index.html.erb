@@ -1,11 +1,13 @@
+
 <header>
   <h1><%= params[:date] ? @today.strftime("%m %d %Y") + t('.daypost') : t('.today') %></h1>
-    <li><%= link_to t('.history'), history_path %></li>
-    <% if policy(Post.new).create? %>
-      <li><%= link_to t('.new_post'), new_post_path %></li>
-    <% end %>
 </header>
 
 <% @posts.each do |post| %>
-  <h2><%= post.liked.count %>  <%= link_to post.title, post_path(post) %> <i><%= t('.writer') %><%= User.find(post.author.id).email %></i></h2>
+  <p><%= link_to ((@posts.index(post) < 3 ? fa_icon("thumbs-o-up") : "")) + " #{post.title}", post_path(post) %> <%= fa_icon("commenting-o") + "[#{post.comments.count}] " + t('.writer') + User.find(post.author.id).email %></p>
+<% end %>
+
+<% if policy(Post.new).create? && !params[:date] %>
+  <br>
+  <%= link_to fa_icon("plus") + " " + t('.new_post'), new_post_path %>
 <% end %>

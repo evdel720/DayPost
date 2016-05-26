@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-RSpec.feature 'Users can create new posts' do
+RSpec.feature 'Signed in users can create new posts' do
   before do
-    login_as(FactoryGirl.create(:user, :admin))
+    login_as(FactoryGirl.create(:user))
     visit '/'
     click_link 'New Post'
   end

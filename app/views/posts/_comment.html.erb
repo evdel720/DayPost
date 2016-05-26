@@ -1,10 +1,13 @@
-<div>
+<div class="comments">
+  <br>
   <p><b><i><%= User.find(comment.author.id).email %></i></b> : <%= comment.content %></p>
-  <%= button_to t('.likeit') + " #{comment.liked.count }", [:like, @post, comment], method: :post %>
-  <% if policy(comment).update? %>
-    <%= link_to t('.edit_link'), [:edit, @post, comment], class: "edit" %>
-  <% end %>
-  <% if policy(comment).destroy? %>
-    <%= link_to t('.del_link'), [@post, comment], method: :delete, data: {confirm: "Are you sure you want to delete this?"}, class: "delete" %>
-  <% end %>
+  <ul>
+    <li><%= link_to fa_icon("thumbs-o-up") + " #{comment.liked.count }", [:like, @post, comment], method: :post, title: "comment_like" %></li>
+    <% if policy(comment).update? %>
+      <li><%= link_to fa_icon("pencil"), [:edit, @post, comment], title: "comment_edit" %></li>
+    <% end %>
+    <% if policy(comment).destroy? %>
+      <li><%= link_to fa_icon("trash"), [@post, comment], method: :delete, title: "comment_delete", data: {confirm: "Are you sure you want to delete this?"} %></li>
+    <% end %>
+  </ul>
 <div>

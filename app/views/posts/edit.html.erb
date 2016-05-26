@@ -4,7 +4,7 @@
 <%= simple_form_for(@post) do |f| %>
   <%= f.error_notification %>
   <%= f.input :title, label: t('.title') %>
-  <%= f.input :content, label: t('.content') %>
+  <%= f.input :content, label: t('.content'), :as => :text, :input_html => {:style => 'height: 300px'} %>
 
-  <%= f.button :submit, t('.update')%>
+  <%= f.button :submit, t('.update'), class: "button", title: "post_update"  %>
 <% end %>

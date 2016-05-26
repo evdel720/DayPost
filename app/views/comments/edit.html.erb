@@ -3,7 +3,6 @@
 </header>
 <%= simple_form_for [@post, @comment] do |f| %>
   <%= f.error_notification %>
-  <%= f.input :content, label: t('.content') %>
-
-  <%= f.button :submit, t('.update') %>
+  <%= f.input :content, label: t('.content'), as: :text, :input_html => {:style => 'height: 60px'} %>
+  <%= f.button :submit, t('.update'), class: "button"  %>
 <% end %>

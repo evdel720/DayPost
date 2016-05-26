@@ -1,16 +1,19 @@
 require 'spec_helper'
 
 RSpec.feature 'Users can like posts' do
-  let!(:user) { FactoryGirl.create(:user, :admin) }
-  let!(:post) { FactoryGirl.create(:post, title: "Luxury Title", content: "New content with long content") }
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:post) { FactoryGirl.create(:post, title: "Luxury Title", author_id: user.id, content: "New content with long content") }
+
   before do
     login_as(user)
-    visit post_path(post)
+    visit post_path(:en, post)
   end
 
-  scenario "successfully" do
-    click_button("Like it 0")
+  scenario "for the first time only" do
+    click_link "post_like"
     expect(page).to have_content('You liked this post.')
-    expect(page).to have_button('Like it 1')
+
+    click_link "post_like"
+    expect(page).to have_content('You already liked this post.')
   end
 end

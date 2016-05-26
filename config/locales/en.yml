@@ -111,10 +111,12 @@ en:
     application:
       home: "Home"
       username: "Signed in as "
-      logout: "Logout"
+      logout: "Sign out"
       manage_info: "Manage Info"
       admin: "Admin"
-      login: "Login"
+      login: "Sign in"
+      signup: "Sign up"
+      history: "History"
   posts:
     history:
       history: "Select Date"
@@ -123,7 +125,6 @@ en:
       today: "Today's Posts"
       new_post: "New Post"
       writer: "Written by "
-      history: "History"
     new:
       new_post: "New Post"
     form:
@@ -135,14 +136,7 @@ en:
       title: "Title"
       content: "Content"
       update: "Update"
-    comment:
-      likeit: "Like it"
-      edit_link: "Edit Comment"
-      del_link: "Delete Comment"
     show:
-      likeit: "Like it"
-      edit_link: "Edit Post"
-      del_link: "Delete Post"
       confirm: "Are you sure you want to delete this post?"
       comments: "Comments"
   comments:

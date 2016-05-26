@@ -7,6 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div class="container">
 <%= form_tag posts_path, method: :get, class: 'locale' do %>
   <%= select_tag 'set_locale',
     options_for_select(LANGUAGES, I18n.locale.to_s),
@@ -15,21 +16,29 @@
   <%= javascript_tag "$('.locale input').hide()" %>
 <% end %>
 
-<% flash.each do |key, message| %>
-  <div class="alert-<%= key %>"><%= message %></div>
-<% end %>
-<%= link_to t('.home'), posts_path %>
-<% if user_signed_in? %>
-  <p><%= t('.username') %><%= current_user.email %></p>
-  <%= link_to t('.logout'), destroy_user_session_path, method: :delete %>
-  <%= link_to t('.manage_info'), edit_user_registration_path %>
-  <% if current_user.admin? %>
-    <%= link_to t('.admin'), admin_root_path %>
+
+  <ul class="actions">
+    <li><%= link_to fa_icon("home")+ " " + t('.home'), posts_path %></li>
+    <li><%= link_to fa_icon("calendar")+ " " + t('.history'), history_path %></li>
+  <% if user_signed_in? %>
+    <li><%= link_to fa_icon("user")+ " " + t('.manage_info'), edit_user_registration_path %></li>
+      <% if current_user.admin? %>
+        <li><%= link_to fa_icon("lock")+ " " + t('.admin'), admin_root_path %></li>
+      <% end %>
+      <li><%= link_to fa_icon("sign-out")+ " " + t('.logout'), destroy_user_session_path, method: :delete %></li>
+      <p><%= t('.username') %><%= current_user.email %></p>
+    <% else %>
+      <li><%= link_to fa_icon("sign-in")+ " " + t('.login'), user_session_path %></li>
+      <li><%= link_to fa_icon("user-plus")+ " " + t('.signup'), new_user_registration_path %></li>
+    <% end %>
+  </ul>
+
+  <% flash.each do |key, message| %>
+    <div class="alert alert-<%= key %>"><%= message %></div>
   <% end %>
-<% else %>
-  <%= link_to t('.login'), user_session_path %>
-<% end %>
-<%= yield %>
+
+  <%= yield %>
+</div>
 
 </body>
 </html>
