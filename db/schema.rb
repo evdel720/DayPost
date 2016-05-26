@@ -44,13 +44,11 @@ ActiveRecord::Schema.define(version: 20160517211548) do
     t.string   "title"
     t.string   "content"
     t.integer  "author_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "comments_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "posts", ["author_id"], name: "index_posts_on_author_id"
-  add_index "posts", ["comments_id"], name: "index_posts_on_comments_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
