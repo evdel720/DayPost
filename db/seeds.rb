@@ -1,30 +1,33 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-unless User.exists?(email: "admin@daypost.com")
-  User.create!(email: "admin@daypost.com", password: "password", admin: true)
+
+User.delete_all
+
+10.times do
+  User.create(
+    email: Faker::Internet.email,
+    password: 'adminuserpassword',
+    admin: true
+  )
 end
 
-["user1@daypost.com", "user2@daypost.com"].each do |email|
-  User.create!(email: email, password: "password")
+50.times do
+  User.create(
+    email: Faker::Internet.email,
+    password: 'userpassword'
+  )
 end
 
-unless Post.exists?(title: "The first post")
-  Post.create!(title: "The first post", content: "A sample project about The first post", author_id: User.where(admin: true).first.id )
+user_count = User.all.count
+
+Post.delete_all
+
+80.times do
+  Post.create(title: Faker::Lorem.sentence, content: Faker::Lorem.paragraphs.join(" "), author_id: (1..user_count).to_a.sample, created_at: Faker::Date.between(2.days.ago, Date.today))
 end
 
-unless Post.exists?(title: "The second post")
-  Post.create!(title: "The second post", content: "A sample project about The second post", author_id: User.where(admin: false).first.id )
-end
+post_count = Post.all.count
 
-unless Comment.exists?(content: "The first comment")
-  Comment.create!(content: "The first comment", author_id: User.where(admin: true).first.id, post_id: Post.first.id )
-end
+Comment.delete_all
 
-unless Comment.exists?(content: "The second comment")
-  Comment.create!(content: "The second comment", author_id: User.where(admin: false).first.id, post_id: Post.first.id )
+100.times do
+  Comment.create(content: Faker::Lorem.paragraph, author_id: (1..user_count).to_a.sample, post_id: (1..post_count).to_a.sample, created_at: Faker::Date.between(2.days.ago, Date.today))
 end

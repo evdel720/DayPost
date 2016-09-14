@@ -15,6 +15,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'bootstrap-sass'
 gem 'font-awesome-rails', '~> 4.3'
 gem 'simple_form', '~> 3.1.0'
+gem 'faker'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
