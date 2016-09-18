@@ -1,7 +1,7 @@
 # DayPost
 [DayPost live][https://daypost.herokuapp.com/]
 
-DayPost is a daily posting app built in Test Driven Development.
+DayPost is a daily posting app built using Test Driven Development.
 
 It utilizes the Pundit gem to authorize users and the Devise gem for authentication.
 
